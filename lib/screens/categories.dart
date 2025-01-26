@@ -5,12 +5,32 @@ import 'package:meals_app/widgets/category_grid_item.dart';
 import 'package:meals_app/model/category.dart';
 import 'package:meals_app/model/meals.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key,required this.availableMeals});
   // final void Function(Meal meal) onToggle;
   final List<Meal> availableMeals;
+
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen>  with SingleTickerProviderStateMixin{
+  late  AnimationController _animationController;
+  void initState(){
+    _animationController=AnimationController(
+      vsync: this,
+      duration:Duration(milliseconds: 400),
+      lowerBound: 0,
+      upperBound: 1);
+      _animationController.forward();
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
   void _selectCategory(BuildContext context,Category category){
-   final selected_meals= availableMeals.where((meal) => meal.categories.contains(category.id)).toList();
+   final selected_meals= widget.availableMeals.where((meal) => meal.categories.contains(category.id)).toList();
     // Navigator.push(context,route);
     Navigator.of(context).push(
       MaterialPageRoute(builder:(context) =>
@@ -18,8 +38,11 @@ class CategoriesScreen extends StatelessWidget {
        meals: selected_meals,))
     );
   }
+  // _animationController
+
   Widget build(BuildContext context){
-    return GridView(
+    return AnimatedBuilder(animation: _animationController,
+    child:  GridView(
         padding: EdgeInsets.all(24),
         gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -35,7 +58,10 @@ class CategoriesScreen extends StatelessWidget {
               },),
           
         ],
-      );
+      ),
+     builder: (cntx,child) => 
+      Padding(padding:EdgeInsets.only(top: 100 -_animationController.value*100,
+      ),child: child,),
+     );
   }
-
 }
