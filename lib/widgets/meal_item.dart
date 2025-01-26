@@ -5,9 +5,9 @@ import 'package:meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealItem  extends StatelessWidget{
- const MealItem({super.key,required this.meal,required this.toggle});
+ const MealItem({super.key,required this.meal,});
   final Meal meal;
-  final void Function(Meal meal) toggle;
+  // final void Function(Meal meal) toggle;
   String get getComplexity{
     return meal.complexity.name[0].toUpperCase()+meal.complexity.name.substring(1);
   }
@@ -24,7 +24,7 @@ class MealItem  extends StatelessWidget{
         child: InkWell(
           onTap: (){
             Navigator.push(context, MaterialPageRoute(
-              builder: (ctx) => MealDetailScreen(meal: meal,onToggelFavorite: toggle,)));
+              builder: (ctx) => MealDetailScreen(meal: meal,)));
           },
           child: Stack(
             children: [
