@@ -1,36 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/main.dart';
-import 'package:meals_app/screens/meals_screen.dart';
-import 'package:meals_app/screens/tab_screen.dart';
-import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/providers/fliters_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// enum Filter{
-//   glutenFree,
-//   lactousFree,
-//   vegetarian,
-//   vegan,
-// }
 class Fliters extends ConsumerWidget {
   const Fliters({super.key});
-
-  // final Map<Filter,bool> currentFilter;
-
-// class _FlitersState extends ConsumerState<Fliters> {
-//   var _glutentFreeFliterSet=false;
-//   var _lactoseFreeFilterSet = false;
-//   var _vegatarianFilterSet=false;
-//   var _veganFilterSet = false;
-//   @override
-//   void initState(){
-//     super.initState();
-//     final activeFilter=ref.read(fliterProvider);
-//     _glutentFreeFliterSet=activeFilter[Filter.glutenFree]! ;
-//     _lactoseFreeFilterSet = activeFilter[Filter.lactousFree]!;
-//     _vegatarianFilterSet=activeFilter[Filter.vegetarian]!;
-//     _veganFilterSet = activeFilter[Filter.vegan]!;
-//   }
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final activeFilter=ref.watch(fliterProvider);
@@ -38,14 +10,6 @@ class Fliters extends ConsumerWidget {
       appBar: AppBar(
         title:Text("Your Filters") ,
       ),
-    //   drawer: MainDrawer(onPress: (identifier){
-    //     Navigator.pop(context);
-    //     if(identifier=='Meals'){
-    //       Navigator.push(context,MaterialPageRoute(
-    //     builder: (ctx) =>TabScreen(),
-    //   ));
-    // }
-    //   }),
       body: Column(
         children: [
           SwitchListTile(
@@ -79,7 +43,7 @@ class Fliters extends ConsumerWidget {
           SwitchListTile(
             value: activeFilter[Filter.vegetarian]!, 
             onChanged: (vaal){
-               ref.read(fliterProvider.notifier).setFilter(Filter.vegan, vaal); 
+               ref.read(fliterProvider.notifier).setFilter(Filter.vegetarian, vaal); 
             },
           title: Text("vegetarian",style: Theme.of(context).textTheme.titleLarge!.copyWith(
             color: Theme.of(context).colorScheme.onBackground,),
@@ -93,7 +57,7 @@ class Fliters extends ConsumerWidget {
           SwitchListTile(
             value: activeFilter[Filter.vegan]!, 
             onChanged: (vaal){
-               ref.read(fliterProvider.notifier).setFilter(Filter.vegetarian, vaal); 
+               ref.read(fliterProvider.notifier).setFilter(Filter.vegan, vaal); 
             },
           title: Text("vegan",style: Theme.of(context).textTheme.titleLarge!.copyWith(
             color: Theme.of(context).colorScheme.onBackground,),

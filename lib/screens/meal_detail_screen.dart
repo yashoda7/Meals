@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/model/meals.dart';
 import 'package:meals_app/providers/favourite_provider.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 class MealDetailScreen extends ConsumerWidget {
   const MealDetailScreen({super.key,required this.meal});
   final Meal meal;
-  // final void Function(Meal meal) onToggelFavorite;
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+    final favourite=ref.watch(favouriteMealsProvider);
+    final isliked=favourite.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -36,7 +35,8 @@ class MealDetailScreen extends ConsumerWidget {
               }
 
             },
-             icon: Icon(Icons.favorite)),
+             icon:(isliked) ? Icon(Icons.star):Icon(Icons.star_border),
+          ),
         ],
       ),
       body:SingleChildScrollView(
