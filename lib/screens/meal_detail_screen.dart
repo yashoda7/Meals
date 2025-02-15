@@ -21,7 +21,7 @@ class MealDetailScreen extends ConsumerWidget {
                 ScaffoldMessenger.of(context).clearSnackBars();
                 ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Marked as favourite")
+                  content: Text("Marked as favourite meal")
                   ),
                 );  
               }
